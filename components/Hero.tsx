@@ -5,7 +5,8 @@ import { MenuButton, ReservationButton } from './Buttons';
 import { HeroVisual, Reveal } from './Motion';
 export function Hero() {
   return <section id="inicio" className="hero" aria-labelledby="hero-title" style={{ '--hero-position-desktop': assets.heroFocalPoint.desktop, '--hero-position-mobile': assets.heroFocalPoint.mobile } as React.CSSProperties}>
-    <HeroVisual><RestaurantImage asset={assets.hero} priority sizes="100vw" className="hero-photo" /></HeroVisual>
+    {/* The tall mobile cover crop needs the full source width, even on narrow screens. */}
+    <HeroVisual><RestaurantImage asset={assets.hero} priority quality={90} sizes="(max-width: 1541px) 1541px, 100vw" className="hero-photo" /></HeroVisual>
     <div className="hero-shade" />
     <div className="hero-content wrap"><Reveal>
       <h1 id="hero-title">Han Tong<span className="hero-name-dot" aria-hidden="true">.</span></h1>

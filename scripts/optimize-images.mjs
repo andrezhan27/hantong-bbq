@@ -13,6 +13,9 @@ for (const filename of (await readdir(source)).sort()) {
     .webp(logo ? { lossless: true } : { quality: 84, effort: 6 }).toFile(output);
   console.log(`${filename} → ${path.basename(output)} (${Math.round((await stat(output)).size / 1024)} KB)`);
 }
+// Keep a lossless hero source so responsive image delivery only compresses it once.
+await sharp(path.join(source, 'space-1.png')).rotate()
+  .webp({ lossless: true, effort: 6 }).toFile(path.join(destination, 'hero.webp'));
 await sharp(path.join(source, 'logo-white.png')).resize(96, 96).png().toFile('app/icon.png');
 await sharp(path.join(source, 'space-1.png')).rotate()
   .resize(1200, 630, { fit: 'cover', withoutEnlargement: true })

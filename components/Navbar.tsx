@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { navigation } from '@/config/site';
+import { Menu, X, ArrowUpRight, CalendarDays } from 'lucide-react';
+import { navigation, reservationPageUrl } from '@/config/site';
 import { assets } from '@/config/assets';
 import { trapDialogFocus } from '@/lib/dialog-focus';
 import { LanguageToggle, useLanguage } from './LanguageProvider';
@@ -44,6 +44,7 @@ export function Navbar() {
         </div>
       </div>
     </header>
+    {isHome && !open && <Link href={reservationPageUrl} className="button button-primary floating-reserve"><CalendarDays size={20} aria-hidden="true" />{t('reserve')}</Link>}
     <dialog ref={dialogRef} id="mobile-navigation" className="mobile-dialog" aria-label={t('navigation')} aria-modal="true" onKeyDown={trapDialogFocus} onCancel={() => setOpen(false)} onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}>
       <div className="mobile-dialog-inner">
         <div className="mobile-dialog-top"><Image src={assets.logo} alt="Han Tong" width={70} height={70} /><button className="icon-button" type="button" aria-label={t('closeNavigation')} onClick={() => setOpen(false)}><X size={27} /></button></div>

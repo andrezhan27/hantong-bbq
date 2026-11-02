@@ -10,6 +10,16 @@ function photo(id: string, pt: string, en: string, position = 'center'): PhotoAs
   return { id, src: `/images/${id}.webp`, alt: { pt, en }, position, source: 'local' };
 }
 export const photos = {
+  'menu-1': photo('menu-1', 'Seleção de carnes, camarão, cogumelos e legumes para barbecue coreano', 'A selection of meat, prawns, mushrooms and vegetables for Korean barbecue'),
+  'menu-2': photo('menu-2', 'Panqueca coreana dourada servida com pauzinhos', 'Golden Korean pancake served with chopsticks'),
+  'menu-3': photo('menu-3', 'Cortes de carne marmoreada junto à grelha de barbecue', 'Marbled beef cuts beside the barbecue grill'),
+  'menu-4': photo('menu-4', 'Fatias de carne marinada com sementes de sésamo e cebolinho', 'Sliced marinated beef with sesame seeds and spring onions'),
+  'menu-5': photo('menu-5', 'Sopa coreana com noodles levantados por pauzinhos', 'Korean soup with noodles lifted by chopsticks'),
+  'menu-6': photo('menu-6', 'Tofu em molho picante com cebolinho', 'Tofu in a spicy sauce with spring onions'),
+  'menu-7': photo('menu-7', 'Garrafas de soju com diferentes sabores', 'Bottles of soju in different flavours'),
+  'menu-8': photo('menu-8', 'Tteokbokki em molho picante servido numa taça', 'Tteokbokki in a spicy sauce served in a bowl'),
+  'menu-table': photo('Korean BBQ Table with Floral Teapot-1', 'Mesa de barbecue coreano com pratos, acompanhamentos e bule floral', 'Korean barbecue table with dishes, sides and a floral teapot'),
+  'menu-10': photo('menu-10', 'Seleção de gelados e sobremesas servidos à mesa', 'A selection of ice creams and desserts served at the table'),
   'space-1': photo('space-1', 'Barbecue à mesa com carnes, camarão, acompanhamentos e bebidas no Han Tong', 'Tabletop barbecue with meat, prawns, sides and drinks at Han Tong', '50% 55%'),
   'space-2': photo('space-2', 'Balcão iluminado, plantas e bancos verdes do restaurante', 'Warmly lit restaurant bar with plants and green seating'),
   'space-3': photo('space-3', 'Uma pessoa a saborear um cocktail com soju', 'A guest enjoying a soju cocktail'),
@@ -24,12 +34,11 @@ export const photos = {
 } satisfies Record<string, PhotoAsset>;
 export const assets = {
   logo: '/images/logo-white.webp',
-  hero: photos['space-1'],
+  hero: { ...photos['space-1'], src: '/images/hero.webp' },
   heroFocalPoint: { desktop: '50% 55%', mobile: '47% 50%' },
-  // The supplied sequence is intentional, including its mix of food and interiors.
   marqueeRows: [
-    [photos['space-1'], photos['space-2'], photos['space-3'], photos['space-4'], photos['space-5']],
-    [photos['space-6'], photos['space-7'], photos['space-8'], photos['space-9'], photos['space-10']],
+    [photos['menu-1'], photos['menu-2'], photos['menu-3'], photos['menu-4'], photos['menu-5']],
+    [photos['menu-6'], photos['menu-7'], photos['menu-8'], photos['menu-table'], photos['menu-10']],
   ],
   collage: [
     { ...photos['space-1'], position: '50% 55%' },

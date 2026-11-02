@@ -41,6 +41,7 @@ h2 { font-family: var(--font-serif), Georgia, serif; font-weight: 400; font-size
 .button-dark:hover { background: #454a33; }
 .reservation-action { display: inline-flex; flex-direction: column; align-items: center; width: 184px; flex-shrink: 0; }
 .reservation-action .button { width: 100%; }
+.floating-reserve { display: none; }
 .icon-button { display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; transition: color .2s, background-color .2s; }
 .icon-button:hover { background: #b77a4817; color: #c78e5b; }
 .text-link { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; font-size: 12px; font-weight: 600; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: #b77a4870; }
@@ -275,6 +276,7 @@ dialog::backdrop { background: #080807b8; backdrop-filter: blur(3px); }
   .brand-wordmark > span { font-size: 7px; letter-spacing: .17em; }
   .nav-actions { gap: 8px; }
   .nav-reserve { display: none; }
+  .floating-reserve { display: inline-flex; position: fixed; z-index: 25; right: max(20px, env(safe-area-inset-right)); bottom: calc(20px + env(safe-area-inset-bottom)); min-width: 0; height: 54px; padding-inline: 20px; gap: 10px; border-radius: 999px; box-shadow: 0 6px 24px #14141240, 0 0 0 1px #f4efe633; }
   .hero { min-height: 690px; height: 92svh; max-height: 900px; }
   .hero-photo { object-position: var(--hero-position-mobile) !important; }
   .hero h1 { font-size: clamp(50px, 14.8vw, 76px); letter-spacing: -.065em; white-space: nowrap; }
@@ -319,7 +321,7 @@ dialog::backdrop { background: #080807b8; backdrop-filter: blur(3px); }
   .press-card-image { height: auto; min-height: 0; aspect-ratio: 16 / 10; }
   .press-card-body { padding: 24px 23px 18px; }
   .press-card h3 { font-size: 29px; }
-  .footer { padding-top: 32px; }
+  .footer { padding-top: 32px; padding-bottom: calc(94px + env(safe-area-inset-bottom)); }
   .footer-main { row-gap: 14px; }
   .footer-brand img { width: 70px; height: 70px; }
   .footer-brand { gap: 14px; }
