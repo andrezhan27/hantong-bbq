@@ -14,6 +14,7 @@
     "assets": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
+    "@andrezhan27/intelis-restaurant-ui": "^0.2.2",
     "@supabase/supabase-js": "^2.118.0",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.468.0",
