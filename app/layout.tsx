@@ -27,5 +27,5 @@ async function RestaurantPromotions() {
   return <div className="restaurant-promotions"><PromotionBanner restaurantId={restaurant.id} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL} supabasePublishableKey={process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY} /></div>;
 }
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-PT"><body className={`${sans.variable} ${serif.variable}`}><LanguageProvider><SkipLink /><SiteHeader><Navbar /><Suspense fallback={null}><RestaurantPromotions /></Suspense></SiteHeader>{children}</LanguageProvider></body></html>;
+  return <html lang="pt-PT"><body className={`${sans.variable} ${serif.variable}`}><LanguageProvider><SkipLink /><SiteHeader><Suspense fallback={null}><RestaurantPromotions /></Suspense><Navbar /></SiteHeader>{children}</LanguageProvider></body></html>;
 }
