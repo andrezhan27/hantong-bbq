@@ -20,8 +20,7 @@ export const restaurant = {
   mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.487493322112!2d-9.17596042402386!3d38.75252147175534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd193300414a0c09%3A0x7057418ca817c4f8!2sHAN%20TONG%20-%20Korean%20BBQ!5e0!3m2!1sen!2spt!4v1793057885742!5m2!1sen!2spt',
 } as const;
 
-// A local file such as /menu/han-tong.pdf or an HTTPS URL. null enables the call fallback.
-export const menuPdfUrl: string | null = null;
+export const menuPdfUrl = '/menu/hantong-menu.pdf';
 export const legalLinks = {
   complaints: 'https://www.livroreclamacoes.pt/Inicio/',
   intelis: 'https://intelis.pt',

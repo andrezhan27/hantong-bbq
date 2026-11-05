@@ -5,7 +5,7 @@ import { restaurant } from '@/config/site';
 import { getSupabaseServerClient } from './supabase';
 
 export type LegalDocument = 'terms' | 'privacy';
-export type LegalContent = { status: 'available'; url: string } | { status: 'pending' };
+export type LegalContent = { status: 'available'; url: string } | { status: 'unavailable' };
 export interface LegalContentProvider {
   getContent(document: LegalDocument, language: Language): Promise<LegalContent>;
 }
@@ -30,13 +30,13 @@ const getRestaurantLegalLinks = cache(async () => {
       .abortSignal(AbortSignal.timeout(5000))
       .maybeSingle();
     if (error) {
-      console.warn('[legal] Supabase restaurant links unavailable; showing placeholder dialogs.', error.code);
+      console.warn('[legal] Supabase restaurant links unavailable; hiding legal links.', error.code);
       return null;
     }
     if (!data) return null;
     return { privacy: legalUrl(data.privacy_policy_url), terms: legalUrl(data.terms_and_conditions_url) };
   } catch {
-    console.warn('[legal] Unable to read Supabase restaurant links; showing placeholder dialogs.');
+    console.warn('[legal] Unable to read Supabase restaurant links; hiding legal links.');
     return null;
   }
 });
@@ -46,6 +46,6 @@ export const legalContentProvider: LegalContentProvider = {
     // The supplied schema has one URL per document, shared by both interface languages.
     const links = await getRestaurantLegalLinks();
     const url = links?.[document];
-    return url ? { status: 'available', url } : { status: 'pending' };
+    return url ? { status: 'available', url } : { status: 'unavailable' };
   },
 };
