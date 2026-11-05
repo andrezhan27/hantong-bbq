@@ -4,6 +4,7 @@ import { connection } from 'next/server';
 import localFont from 'next/font/local';
 import { LanguageProvider, SkipLink } from '@/components/LanguageProvider';
 import { Navbar } from '@/components/Navbar';
+import { SiteHeader } from '@/components/SiteHeader';
 import { PromotionBanner } from '@andrezhan27/intelis-restaurant-ui';
 import { restaurant } from '@/config/site';
 import { isIndexable, metadataBase, siteUrl } from '@/config/seo';
@@ -23,8 +24,8 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 async function RestaurantPromotions() {
   // Fetch the live snapshot at request time, outside static prerendering.
   await connection();
-  return <PromotionBanner restaurantId={restaurant.id} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL} supabasePublishableKey={process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY} />;
+  return <div className="restaurant-promotions"><PromotionBanner restaurantId={restaurant.id} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL} supabasePublishableKey={process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY} /></div>;
 }
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-PT"><body className={`${sans.variable} ${serif.variable}`}><LanguageProvider><SkipLink /><Suspense fallback={null}><RestaurantPromotions /></Suspense><Navbar />{children}</LanguageProvider></body></html>;
+  return <html lang="pt-PT"><body className={`${sans.variable} ${serif.variable}`}><LanguageProvider><SkipLink /><SiteHeader><Navbar /><Suspense fallback={null}><RestaurantPromotions /></Suspense></SiteHeader>{children}</LanguageProvider></body></html>;
 }

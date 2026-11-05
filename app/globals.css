@@ -13,7 +13,7 @@
 }
 :root { --background: #141412; --foreground: #f4efe6; --section-space: clamp(76px, 8.2vw, 124px); --radius: 3px; --radius-control: 10px; --radius-card: 16px; --nav-height: 94px; }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 20px); }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--site-header-height, var(--nav-height)) + 20px); }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans), Arial, sans-serif; font-size: 14px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 button, a, input { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; cursor: pointer; }
@@ -48,7 +48,8 @@ h2 { font-family: var(--font-serif), Georgia, serif; font-weight: 400; font-size
 .text-link:hover { color: #87532d; }
 
 /* Navigation */
-.navbar { position: fixed; z-index: 30; inset: 0 0 auto; height: var(--nav-height); transition: background .3s, border-color .3s; border-bottom: 1px solid #f4efe61c; }
+.site-header { position: fixed; z-index: 30; inset: 0 0 auto; }
+.navbar { position: relative; height: var(--nav-height); transition: background .3s, border-color .3s; border-bottom: 1px solid #f4efe61c; }
 .navbar.is-scrolled { background: #141412f5; border-color: #f4efe615; }
 .nav-inner { width: min(1344px, calc(100% - 80px)); height: 100%; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
 .brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
@@ -79,13 +80,62 @@ dialog::backdrop { background: #080807b8; backdrop-filter: blur(3px); }
 .mobile-dialog nav a > svg { margin-left: auto; }
 .mobile-link-number { font-family: var(--font-sans), sans-serif; font-size: 10px; color: #b77a48; }
 
+/* Keep package overrides scoped to this restaurant, without depending on generated class names. */
+.restaurant-promotions [role='dialog'] {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: calc(100dvh - 2rem);
+}
+.restaurant-promotions [role='dialog'] > header,
+.restaurant-promotions [role='dialog'] > div:last-child:not([data-count]) { flex-shrink: 0; }
+.restaurant-promotions [role='dialog'] [data-count] {
+  flex: 0 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  grid-auto-rows: max-content;
+}
+.restaurant-promotions [role='dialog'] [data-count='multiple'] { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.restaurant-promotions [role='dialog'] [data-count] article {
+  height: auto;
+  min-height: 0;
+  grid-template-rows: auto;
+}
+.restaurant-promotions [role='dialog'] article > div:last-child { flex: 1 0 auto; overflow: visible; }
+.restaurant-promotions [role='dialog'] article h3,
+.restaurant-promotions [role='dialog'] article p {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+  overflow-wrap: anywhere;
+}
+.restaurant-promotions [role='dialog'] article img { object-fit: contain; }
+.restaurant-promotions [role='dialog'] article a {
+  height: auto;
+  min-height: 2.75rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 48rem) {
+  .restaurant-promotions [role='dialog'] [data-count] { display: block; }
+  .restaurant-promotions [role='dialog'] [data-count] article { grid-template-rows: auto; }
+}
+@media (max-width: 30rem) {
+  .restaurant-promotions [role='dialog'] [data-count] article { grid-template-columns: 1fr; }
+  .restaurant-promotions [role='dialog'] article > div:first-child { height: auto; max-height: 30dvh; }
+  .restaurant-promotions [role='dialog'] article img { height: auto; max-height: 30dvh; }
+}
+
 /* Hero */
 .hero { height: min(94svh, 1000px); min-height: 680px; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; }
 .hero-visual, .hero-shade { position: absolute; inset: 0; z-index: -1; }
 .hero-image-inner { position: absolute; inset: -30px 0; }
 .hero-photo { object-position: var(--hero-position-desktop) !important; }
 .hero-shade { background: linear-gradient(180deg, #14141288 0%, #14141265 35%, #1414128f 72%, #141412a8 100%); }
-.hero-content { padding-top: var(--nav-height); text-align: center; }
+.hero-content { padding-top: var(--site-header-height, var(--nav-height)); text-align: center; }
 .hero h1 { font-family: var(--font-sans), sans-serif; font-size: clamp(72px, 8.5vw, 128px); font-weight: 600; line-height: 1.05; letter-spacing: -.065em; }
 .hero-name-dot { color: #c58c5c; }
 .hero-subtitle { margin-top: 14px; font-size: clamp(11px, 1vw, 14px); font-weight: 500; letter-spacing: .4em; text-transform: uppercase; padding-left: .4em; }
@@ -223,7 +273,7 @@ dialog::backdrop { background: #080807b8; backdrop-filter: blur(3px); }
 
 
 /* Booking has its own full-viewport route. Only the iframe scrolls below the navbar. */
-.reservation-page { display: flex; flex-direction: column; width: 100%; height: 100dvh; padding-top: var(--nav-height); overflow: hidden; background: #fff; }
+.reservation-page { display: flex; flex-direction: column; width: 100%; height: 100dvh; padding-top: var(--site-header-height, var(--nav-height)); overflow: hidden; background: #fff; }
 .reservation-page-frame { display: block; flex: 1; min-height: 0; width: 100%; height: 100%; margin: 0; border: 0; background: #fff; }
 
 @media (max-width: 1100px) {
@@ -345,7 +395,7 @@ dialog::backdrop { background: #080807b8; backdrop-filter: blur(3px); }
   .hero-actions .button { min-width: 140px; width: 140px; gap: 10px; padding-inline: 12px; }
 }
 @media (max-height: 600px) and (max-width: 1100px) {
-  .hero { height: auto; min-height: 100svh; padding-block: calc(var(--nav-height) + 32px) 70px; }
+  .hero { height: auto; min-height: 100svh; padding-block: calc(var(--site-header-height, var(--nav-height)) + 32px) 70px; }
   .hero-content { padding-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
