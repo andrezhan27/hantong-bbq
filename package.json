@@ -17,6 +17,7 @@
   "dependencies": {
     "@andrezhan27/intelis-restaurant-ui": "^0.2.2",
     "@supabase/supabase-js": "^2.118.0",
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.468.0",
     "next": "^16.0.0",
